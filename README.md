@@ -5,6 +5,8 @@ API that manages library.
 
 The Library API provides access to information about books and authors. You can perform operations like retrieving books, creating or updating books, and managing authors.
 
+[Swagger Petstore Editor](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/rasoanirinamialisoa/library-management/TD1/docs/api.yml)
+
 ## Endpoints
 
 ### /books
