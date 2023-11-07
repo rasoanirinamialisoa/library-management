@@ -133,9 +133,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-  /books/{bookId}/topics/{topicsId}:
-    attend eto
-
+  /books/{bookId}/topic/{topicId}:
+    put:
+      summary: Update the topic of a book
+      operationId: updateBookTopic
+      tags:
+        - Books
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to update
+          required: true
+          schema:
+            type: string
+        - name: topicId
+          in: path
+          description: ID of the new topic
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Topic updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
   /authors:
     get:
       summary: Get all authors
@@ -227,12 +250,6 @@ components:
           type: string
         pageNumbers:
           type: integer
-        topic:
-          type: string
-          enum:
-            - ROMANCE
-            - COMEDY
-            - OTHER
         releaseDate:
           type: string
           format: date
@@ -242,7 +259,17 @@ components:
         - properties:
             author:
               $ref: '#/components/schemas/Author'
-
+            topic:
+              $ref: '#/components/schemas/Topic'
+    Topic:
+      type: object
+      properties:
+        topicName:
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
     Author:
       type: object
       properties:
