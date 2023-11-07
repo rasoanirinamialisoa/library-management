@@ -1,0 +1,17 @@
+2.b.
+
+i. UpdateBookAuthor possède uniquement l'identifiant de CrupdateBook et l'identifiant de Author sans les autres propriétés telles que bookName et authorName parce que son objectif est de permettre la mise à jour des associations entre les livres et les auteurs, en indiquant quels livres sont associés à quels auteurs. Il ne devrait pas inclure les propriétés de bookName et authorName, car la mise à jour des noms de livre ou d'auteur devrait être effectuée en utilisant les composants CrupdateBook et Author respectifs. UpdateBookAuthor sert principalement à gérer les relations entre les entités plutôt qu'à mettre à jour les détails spécifiques des livres et des auteurs.
+
+ii. UpdateBookAuthor devrait avoir les propriétés de CrupdateBook et de Author si, par exemple, on souhaite permettre la modification des détails spécifiques des livres et des auteurs lors de la mise à jour des associations entre eux. Dans ce cas, UpdateBookAuthor serait une structure plus complète qui permettrait de mettre à jour à la fois les informations de livre (telles que bookName) et d'auteur (telles que authorName) en plus de spécifier quels livres sont associés à quels auteurs.
+
+3.a.
+Les paginations sont nécessaires dans une API GET pour
+- améliorer les performances,
+- optimiser les ressources côté client,
+- réduire les erreurs potentielles,
+- offrir une meilleure expérience utilisateur et
+- respecter les conventions de pagination standard.
+
+4.a. On peut gérer la pagination à travers les entêtes de la requête, mais ce n'est pas la meilleure pratique. Les entêtes de la requête sont généralement utilisés pour d'autres métadonnées, tandis que les paramètres de requête ou de chemin sont conçus pour contrôler la pagination de manière plus intuitive.
+
+4.b. Nous ne devons pas gérer la pagination à travers les entêtes de la requête, car cela ne suit pas les conventions de conception d'API RESTful. Les paramètres de requête ou de chemin sont les méthodes standard pour contrôler la pagination, ce qui les rend plus compréhensibles pour les utilisateurs de l'API et améliore la lisibilité et la maintenabilité de l'API.

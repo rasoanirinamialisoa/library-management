@@ -224,21 +224,24 @@ components:
           type: string
         pageNumbers:
           type: integer
-        topic:
-          type: string
-          enum:
-            - ROMANCE
-            - COMEDY
-            - OTHER
         releaseDate:
           type: string
           format: date
+    Topic:
+      type: string
+      enum:
+        - ROMANCE
+        - COMEDY
+        - OTHER
+
     Book:
       allOf:
         - $ref: '#/components/schemas/CrupdateBook'
         - properties:
             author:
               $ref: '#/components/schemas/Author'
+            topic:
+              $ref: '#/components/schemas/Topic'
 
     Author:
       type: object
