@@ -49,7 +49,7 @@ paths:
             type: integer
             default: 1
         - in: query
-          name: size
+          name: sizePage
           description: Number of items  per page
           required: false
           schema:
@@ -133,6 +133,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+  /books/{bookId}/topics/{topicsId}:
+    attend eto
+
   /authors:
     get:
       summary: Get all authors
@@ -148,6 +151,21 @@ paths:
           schema:
             type: string
           required: false
+        - name : page
+          in : path
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in : path
+          description: Number of items  per page
+          required: false
+          schema:
+            type: integer
+            default: 50
+
       responses:
         200:
           description: The list of filtered authors
