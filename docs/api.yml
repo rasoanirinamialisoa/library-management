@@ -133,9 +133,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-  /books/{bookId}/topics/{topicsId}:
-    attend eto
-
   /authors:
     get:
       summary: Get all authors
@@ -257,7 +254,6 @@ components:
       enum:
         - M
         - F
-
     UpdateBookAuthor:
       type: object
       properties:
