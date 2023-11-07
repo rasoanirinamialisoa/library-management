@@ -61,7 +61,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/CrupdateBook'
       responses:
         200:
           description: The list of created or updated books
@@ -98,6 +98,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Book'
+  /books/authors:
+    put:
+      summary: Update book authors in bulk
+      operationId: updateBookAuthors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateBookAuthor'
+      responses:
+        200:
+          description: Authors of the books updated successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
   /authors:
     get:
       summary: Get all authors
@@ -204,5 +224,14 @@ components:
       enum:
         - M
         - F
+    UpdateBookAuthor:
+      type: object
+      properties:
+        bookId:
+          type: string
+          description: ID of the book
+        authorId:
+          type: string
+          description: ID of the author
 
 
