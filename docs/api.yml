@@ -193,6 +193,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+    post:
+      summary: Delete multiple authors
+      operationId: deleteMultipleAuthors
+      tags:
+        - Authors
+      requestBody:
+        description: List of author identifiers to be deleted
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        200:
+          description: Authors deleted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
   /authors/{aId}:
     delete:
       summary: Delete an author
