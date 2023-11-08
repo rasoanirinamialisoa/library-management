@@ -324,6 +324,22 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/Topic'
+  /authors/import:
+    post:
+      summary: Import a list of authors
+      operationId: importAuthors
+      tags:
+        - Authors
+      requestBody:
+        description: The file to import in either JSON or Excel format.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportAuthor'
+      responses:
+        200:
+          $ref: '#/components/responses/AuthorResponse200'
+
 components:
   schemas:
     CrupdateBook:
@@ -367,7 +383,7 @@ components:
     Author:
       type: object
       properties:
-        id:
+        idAuthor:
           type: string
         authorName:
           type: string
@@ -378,6 +394,14 @@ components:
       enum:
         - M
         - F
+    ImportAuthor:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
+
     UpdateBookAuthor:
       type: object
       properties:
