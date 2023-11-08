@@ -308,7 +308,7 @@ paths:
       tags:
         - Topics
       parameters:
-        - name: topicId
+        - name: tId
           in: path
           description: ID of the topic to be deleted
           required: true
