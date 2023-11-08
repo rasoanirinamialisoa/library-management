@@ -280,6 +280,28 @@ paths:
                 items:
                   $ref: '#/components/schemas/Topic'
 
+    put:
+      summary: Update the list of available topics
+      operationId: updateTopics
+      tags:
+        - Topics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Topic'
+      responses:
+        200:
+          description: List of available topics updated successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Topic'
+
 components:
   schemas:
     CrupdateBook:
