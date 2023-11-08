@@ -81,6 +81,16 @@ The Library API allows you to perform various operations related to books and au
 - Responses:
   - 200 - Success: List of available topics updated successfully
 
+### /books/import
+
+#### POST - Import a list of books
+
+- Import a list of books from JSON or Excel files.
+- Request Body: The file to import in either JSON or Excel format.
+- Responses:
+  - 200 - Success: List of imported books
+  - Content Type: application/json
+  - Schema: Type: array, Items: [Book](#book)
 
 ### /authors
 
@@ -114,6 +124,17 @@ The Library API allows you to perform various operations related to books and au
     - 200 - Success: The author deleted
     - Content Type: application/json
     - Schema: [Author](#author)
+
+### /authors/import
+
+#### POST - Import a list of authors
+
+- Import a list of authors from JSON or Excel files.
+- Request Body: The file to import in either JSON or Excel format.
+- Responses:
+  - 200 - Success: List of imported authors
+  - Content Type: application/json
+  - Schema: Type: array, Items: [Author](#author)
 ### /topics
 
 #### GET - Get all topics
@@ -183,4 +204,15 @@ The Library API allows you to perform various operations related to books and au
 - Properties:
     - bookId (Type: string)
     - authorId (Type: string)
+### ImportBook
 
+- Type: object
+- Properties:
+  - book (Type: [Book](#book))
+  - idAuthor (Type: string)
+
+### ImportAuthor
+
+- Type: object
+- Properties:
+  - author (Type: [Author](#author))
