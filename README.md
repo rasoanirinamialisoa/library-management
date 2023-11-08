@@ -172,7 +172,6 @@ The Library API allows you to perform various operations related to books and au
     - pageNumbers (Type: integer)
     - topic (Type: string, Enum: ROMANCE, COMEDY, OTHER)
     - releaseDate (Type: string, Format: date)
-
 ### Topic      
 - Type: object
   - Properties:
