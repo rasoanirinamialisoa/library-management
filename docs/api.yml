@@ -192,13 +192,7 @@ paths:
 
       responses:
         200:
-          description: The list of filtered authors
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Author'
+          $ref: '#/components/responses/AuthorResponse200'
     put:
       summary: Create or update authors
       operationId: crupdateAuthors
@@ -213,13 +207,7 @@ paths:
                 $ref: '#/components/schemas/Author'
       responses:
         200:
-          description: The list of created or updated authors
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Author'
+          $ref: '#/components/responses/AuthorResponse200'
   /authors/{aId}:
     delete:
       summary: Delete an author
@@ -235,11 +223,7 @@ paths:
           required: true
       responses:
         200:
-          description: The author deleted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Author'
+          $ref: '#/components/responses/AuthorResponse200'
   /topics:
     get:
       summary: Get all available topics
@@ -445,3 +429,13 @@ components:
       schema:
         type: integer
         default: 50
+
+  responses:
+    AuthorResponse200:
+      description: The list of authors that match the provided filters
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Author'
