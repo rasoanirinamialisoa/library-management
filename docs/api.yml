@@ -385,6 +385,8 @@ components:
     Topic:
       type: object
       properties:
+        id:
+          type: string
         topicName:
           type: string
           enum:
