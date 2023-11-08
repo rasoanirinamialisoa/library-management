@@ -336,6 +336,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Topic'
+  /author/topics:
+    get:
+      summary: Get all topics associated with an author
+      operationId: getAuthorTopics
+      tags:
+        - Topics
+      responses:
+        200:
+          description: List of topics associated with the author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Topic'
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 12345
+                          description: ID of the topic
+                          readOnly: true
 
 components:
   schemas:
