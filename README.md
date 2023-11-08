@@ -173,6 +173,11 @@ The Library API allows you to perform various operations related to books and au
     - topic (Type: string, Enum: ROMANCE, COMEDY, OTHER)
     - releaseDate (Type: string, Format: date)
 
+### Topic      
+- Type: object
+  - Properties:
+     - topicName, enum (ROMANCE, COMEDY, OTHER)
+
 ### UpdateBookAuthor
 
 - Type: object
