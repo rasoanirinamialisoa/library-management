@@ -336,29 +336,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Topic'
-  /author/topics:
+  /authorTopics:
     get:
-      summary: Get all topics associated with an author
+      summary: Get a list of AuthorTopic items.
       operationId: getAuthorTopics
       tags:
         - Topics
+      parameters:
+        - name: authorId
+          in: query
+          description: Optional author ID to filter the AuthorTopic items.
+          required: false
+          schema:
+            type: string
+        - name: authorName
+          in: query
+          description: Optional author name to filter the AuthorTopic items.
+          required: false
+          schema:
+            type: string
+        - name: authorSex
+          in: query
+          description: Optional author sex (M or F) to filter the AuthorTopic items.
+          required: false
+          schema:
+            $ref: '#/components/schemas/Sex'
+        - name: topics
+          in: query
+          description: Optional list of topics to filter the AuthorTopic items.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         200:
-          description: List of topics associated with the author
+          description: List of AuthorTopic items.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  allOf:
-                    - $ref: '#/components/schemas/Topic'
-                    - type: object
-                      properties:
-                        id:
-                          type: string
-                          example: 12345
-                          description: ID of the topic
-                          readOnly: true
+                  type: object
+                  properties:
+                    authorId:
+                      type: string
+                    authorName:
+                      type: string
+                    authorSex:
+                      type: string
+                      enum:
+                        - M
+                        - F
+                    topics:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Topic'
+
+
 
 components:
   schemas:
@@ -407,7 +442,6 @@ components:
       enum:
         - M
         - F
-
     UpdateBookAuthor:
       type: object
       properties:
@@ -417,5 +451,3 @@ components:
         authorId:
           type: string
           description: ID of the author
-
-
