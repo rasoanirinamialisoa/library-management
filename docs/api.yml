@@ -432,10 +432,22 @@ components:
 
   responses:
     AuthorResponse200:
-      description: The list of authors that match the provided filters
+      description: Successful response with a list of authors
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Author'
+            type: object
+            properties:
+              status:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Success
+              body:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
