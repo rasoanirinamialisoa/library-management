@@ -147,19 +147,15 @@ paths:
         - Books
       requestBody:
         description: The file to import in either JSON or Excel format.
+        required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ImportBook'
+              oneOf:
+                - $ref: '#/components/schemas/ImportBook'
       responses:
         200:
-          description: List of imported books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
   /authors:
     get:
       summary: Get all authors
@@ -181,6 +177,7 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/AuthorResponse200'
+
     put:
       summary: Create or update authors
       operationId: crupdateAuthors
@@ -332,10 +329,12 @@ paths:
         - Authors
       requestBody:
         description: The file to import in either JSON or Excel format.
+        required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ImportAuthor'
+              oneOf:
+                - $ref: '#/components/schemas/ImportAuthor'
       responses:
         200:
           $ref: '#/components/responses/AuthorResponse200'
@@ -397,10 +396,8 @@ components:
     ImportAuthor:
       type: object
       properties:
-        authorName:
-          type: string
-        sex:
-          $ref: '#/components/schemas/Sex'
+        author:
+          $ref: '#/components/schemas/Author'
 
     UpdateBookAuthor:
       type: object
