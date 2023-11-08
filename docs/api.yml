@@ -139,7 +139,27 @@ paths:
         200:
           $ref: '#/components/responses/BookResponse200'
 
-
+  /books/import:
+    post:
+      summary: Import a list of books
+      operationId: importBooks
+      tags:
+        - Books
+      requestBody:
+        description: The file to import in either JSON or Excel format.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportBook'
+      responses:
+        200:
+          description: List of imported books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
   /authors:
     get:
       summary: Get all authors
@@ -326,6 +346,13 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
+    ImportBook:
+      type: object
+      properties:
+        book:
+          $ref: '#/components/schemas/Book'
+        idAuthor:
+          type: string
     Topic:
       type: object
       properties:
