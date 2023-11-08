@@ -431,8 +431,8 @@ components:
         default: 50
 
   responses:
-    AuthorResponse200:
-      description: Successful response with a list of authors
+    Response200Base:
+      description: Base structure for a successful response
       content:
         application/json:
           schema:
@@ -447,7 +447,20 @@ components:
                   message:
                     type: string
                     example: Success
-              body:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Author'
+    AuthorResponse200:
+      description: Successful response with a list of authors
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/responses/Response200Base'
+              - properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+
+
+
+
+
