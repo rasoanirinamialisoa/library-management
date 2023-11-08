@@ -8,7 +8,6 @@ servers:
 tags:
   - Books
   - Authors
-  - Topics
 paths:
   /books:
     get:
@@ -134,56 +133,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-  /books/{bookId}/topics/{topicsId}:
-    put:
-      summary: Update the topic of a book
-      operationId: updateBookTopic
-      tags:
-        - Books
-      parameters:
-        - name: bookId
-          in: path
-          description: ID of the book to update
-          required: true
-          schema:
-            type: string
-        - name: topicsId
-          in: path
-          description: ID of the new topic
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Topic updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Topic'
-  /books/topics:
-    put:
-      summary: Update the list of available book topics
-      operationId: updateBookTopics
-      tags:
-        - Books
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Topic'
-      responses:
-        200:
-          description: Book topic updated successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
-
-
   /authors:
     get:
       summary: Get all authors
@@ -244,6 +193,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+    post:
+      summary: Delete multiple authors
+      operationId: deleteMultipleAuthors
+      tags:
+        - Authors
+      requestBody:
+        description: List of author identifiers to be deleted
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        200:
+          description: Authors deleted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
   /authors/{aId}:
     delete:
       summary: Delete an author
@@ -264,102 +236,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
-  /topics:
-    get:
-      summary: Get all available topics
-      operationId: getTopics
-      tags:
-        - Topics
-      parameters:
-        - name: page
-          in: query
-          description: Page number for pagination
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - name: pageSize
-          in: query
-          description: Number of items per page
-          required: false
-          schema:
-            type: integer
-            default: 50
-      responses:
-        200:
-          description: List of available topics
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Topic'
-
-    put:
-      summary: Update the list of available topics
-      operationId: updateTopics
-      tags:
-        - Topics
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Topic'
-      responses:
-        200:
-          description: List of available topics updated successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Topic'
-  /topics{tId}:
-    delete:
-      summary: Delete a topic
-      operationId: deleteTopic
-      tags:
-        - Topics
-      parameters:
-        - name: tId
-          in: path
-          description: ID of the topic to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Topic deleted successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Topic'
-  /author/topics:
-    get:
-      summary: Get all topics associated with an author
-      operationId: getAuthorTopics
-      tags:
-        - Topics
-      responses:
-        200:
-          description: List of topics associated with the author
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  allOf:
-                    - $ref: '#/components/schemas/Topic'
-                    - type: object
-                      properties:
-                        id:
-                          type: string
-                          example: 12345
-                          description: ID of the topic
-                          readOnly: true
-
 components:
   schemas:
     CrupdateBook:
@@ -374,6 +250,13 @@ components:
         releaseDate:
           type: string
           format: date
+    Topic:
+      type: string
+      enum:
+        - ROMANCE
+        - COMEDY
+        - OTHER
+
     Book:
       allOf:
         - $ref: '#/components/schemas/CrupdateBook'
@@ -382,15 +265,7 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
-    Topic:
-      type: object
-      properties:
-        topicName:
-          type: string
-          enum:
-            - ROMANCE
-            - COMEDY
-            - OTHER
+
     Author:
       type: object
       properties:
@@ -405,7 +280,6 @@ components:
       enum:
         - M
         - F
-
     UpdateBookAuthor:
       type: object
       properties:
