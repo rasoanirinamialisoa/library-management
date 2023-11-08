@@ -46,13 +46,7 @@ paths:
         - $ref: '#/components/parameters/pathPagination'
       responses:
         200:
-          description: The list of filtered books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
     put:
       tags:
         - Books
@@ -67,13 +61,7 @@ paths:
                 $ref: '#/components/schemas/CrupdateBook'
       responses:
         200:
-          description: The list of created or updated books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
   /books/{bookId}/authors/{authorId}:
     put:
       summary: Modify the author of a book
@@ -95,11 +83,7 @@ paths:
             type: string
       responses:
         200:
-          description: Author of the book modified successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
   /books/authors:
     put:
       summary: Update book authors in bulk
@@ -115,13 +99,7 @@ paths:
                 $ref: '#/components/schemas/UpdateBookAuthor'
       responses:
         200:
-          description: Authors of the books updated successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
   /books/{bookId}/topics/{topicsId}:
     put:
       summary: Update the topic of a book
@@ -143,11 +121,7 @@ paths:
             type: string
       responses:
         200:
-          description: Topic updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Topic'
+          $ref: '#/components/responses/TopicResponse200'
   /books/topics:
     put:
       summary: Update the list of available book topics
@@ -163,13 +137,7 @@ paths:
                 $ref: '#/components/schemas/Topic'
       responses:
         200:
-          description: Book topic updated successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/BookResponse200'
 
 
   /authors:
@@ -247,13 +215,7 @@ paths:
             default: 50
       responses:
         200:
-          description: List of available topics
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Topic'
+          $ref: '#/components/responses/TopicResponse200'
 
     put:
       summary: Update the list of available topics
@@ -269,13 +231,7 @@ paths:
                 $ref: '#/components/schemas/Topic'
       responses:
         200:
-          description: List of available topics updated successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Topic'
+          $ref: '#/components/responses/TopicResponse200'
   /topics{tId}:
     delete:
       summary: Delete a topic
@@ -291,11 +247,7 @@ paths:
             type: string
       responses:
         200:
-          description: Topic deleted successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Topic'
+          $ref: '#/components/responses/TopicResponse200'
   /authorTopics:
     get:
       summary: Get a list of AuthorTopic items.
@@ -352,9 +304,6 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/Topic'
-
-
-
 components:
   schemas:
     CrupdateBook:
@@ -459,6 +408,32 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/Author'
+    BookResponse200:
+      description: Successful response with a list of book
+      content:
+        applicatio/json:
+          schema:
+            allOf:
+              - $ref: '#/components/responses/Response200Base'
+              - properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Book'
+    TopicResponse200:
+      description: Successful response with a list of topic
+      content:
+        applicatio/json:
+          schema:
+            allOf:
+              - $ref: '#/components/responses/Response200Base'
+              - properties:
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Topic'
+
+
 
 
 
