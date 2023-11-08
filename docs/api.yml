@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Library API
   version: 1.1.0
-  description: STD22001
+  description: STD22026
 servers:
   - url: https://library.com
 tags:
@@ -42,20 +42,8 @@ paths:
             type: string
             format: date
           required: false
-        - in: query
-          name: page
-          description: Page number for pagination
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: sizePage
-          description: Number of items  per page
-          required: false
-          schema:
-            type: integer
-            default: 50
+        - $ref: '#/components/parameters/queryPagination'
+        - $ref: '#/components/parameters/pathPagination'
       responses:
         200:
           description: The list of filtered books
@@ -199,20 +187,8 @@ paths:
           schema:
             type: string
           required: false
-        - name : page
-          in : path
-          description: Page number for pagination
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - name: pageSize
-          in : path
-          description: Number of items  per page
-          required: false
-          schema:
-            type: integer
-            default: 50
+        - $ref: '#/components/parameters/queryPagination'
+        - $ref: '#/components/parameters/pathPagination'
 
       responses:
         200:
@@ -451,3 +427,21 @@ components:
         authorId:
           type: string
           description: ID of the author
+
+  parameters:
+    queryPagination:
+      name: page
+      in: query
+      description: Page number for pagination
+      required: false
+      schema:
+        type: integer
+        default: 1
+    pathPagination:
+      name: pageSize
+      in: path
+      description: Number of items per page
+      required: false
+      schema:
+        type: integer
+        default: 50
