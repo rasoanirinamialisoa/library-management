@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.2.0
+  version: 1.4.0
   description: STD22026
 servers:
   - url: https://library.com
@@ -9,6 +9,7 @@ tags:
   - Books
   - Authors
   - Topics
+  - Visitor
 paths:
   /books:
     get:
@@ -453,6 +454,17 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
+
+    Visitor:
+      type: object
+      properties:
+        idVisitor:
+          type: string
+        name:
+          type: string
+        reference:
+          type: string
+
     ImportAuthorExcel:
       type: object
       properties:
@@ -585,6 +597,14 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Topic'
+    VisitorListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Visitor'
 
   responses:
     BookList_200:
@@ -605,6 +625,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/TopicsListBody'
+    VisitorList_200:
+      description: List of visitor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VisitorListBody'
 
     BadRequest_400:
       description: Bad request
