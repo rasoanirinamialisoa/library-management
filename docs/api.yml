@@ -42,15 +42,17 @@ paths:
             type: string
             format: date
           required: false
-        - $ref: '#/components/parameters/queryPagination'
-        - $ref: '#/components/parameters/pathPagination'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
+          $ref: '#/components/responses/ErrorRequest_500'
 
     put:
       tags:
@@ -66,13 +68,14 @@ paths:
                 $ref: '#/components/schemas/CrupdateBook'
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/Response403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/Response500'
+          $ref: '#/components/responses/ErrorRequest_500'
+
   /books/{bookId}/authors/{authorId}:
     put:
       summary: Modify the author of a book
@@ -94,13 +97,14 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/Response403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/Response500'
+          $ref: '#/components/responses/ErrorRequest_500'
+
   /books/authors:
     put:
       summary: Update book authors in bulk
@@ -116,13 +120,14 @@ paths:
                 $ref: '#/components/schemas/UpdateBookAuthor'
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/Response403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/Response500'
+          $ref: '#/components/responses/ErrorRequest_500'
+
   /books/{bookId}/topics/{topicsId}:
     put:
       summary: Update the topic of a book
@@ -143,14 +148,15 @@ paths:
           schema:
             type: string
       responses:
-          200:
-            $ref: '#/components/responses/BookResponse200'
-          400:
-            $ref: '#/components/responses/BookResponse400'
-          403:
-            $ref: '#/components/responses/BookResponse403'
-          500:
-            $ref: '#/components/responses/BookResponse500'
+        200:
+          $ref: '#/components/responses/BookList_200'
+        400:
+          $ref: '#/components/responses/BadRequest_400'
+        403:
+          $ref: '#/components/responses/ForbiddenRequest_403'
+        500:
+          $ref: '#/components/responses/ErrorRequest_500'
+
   /books/topics:
     put:
       summary: Update the list of available book topics
@@ -166,13 +172,14 @@ paths:
                 $ref: '#/components/schemas/Topic'
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/BookResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/BookResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
+
 
   /books/import:
     post:
@@ -190,13 +197,14 @@ paths:
                 - $ref: '#/components/schemas/ImportBook'
       responses:
         200:
-          $ref: '#/components/responses/BookResponse200'
+          $ref: '#/components/responses/BookList_200'
         400:
-          $ref: '#/components/responses/BookResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/BookResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/BookResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
+
   /authors:
     get:
       summary: Get all authors
@@ -212,18 +220,18 @@ paths:
           schema:
             type: string
           required: false
-        - $ref: '#/components/parameters/queryPagination'
-        - $ref: '#/components/parameters/pathPagination'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
 
       responses:
         200:
-          $ref: '#/components/responses/AuthorResponse200'
+          $ref: '#/components/responses/AuthorList_200'
         400:
-          $ref: '#/components/responses/AuthorResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/AuthorResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/AuthorResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
 
     put:
       summary: Create or update authors
@@ -239,13 +247,13 @@ paths:
                 $ref: '#/components/schemas/Author'
       responses:
         200:
-          $ref: '#/components/responses/AuthorResponse200'
+          $ref: '#/components/responses/AuthorList_200'
         400:
-          $ref: '#/components/responses/AuthorResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/AuthorResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/AuthorResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
   /authors/{aId}:
     delete:
       summary: Delete an author
@@ -261,13 +269,13 @@ paths:
           required: true
       responses:
         200:
-          $ref: '#/components/responses/AuthorResponse200'
+          $ref: '#/components/responses/AuthorList_200'
         400:
-          $ref: '#/components/responses/AuthorResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/AuthorResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/AuthorResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
   /topics:
     get:
       summary: Get all available topics
@@ -291,13 +299,13 @@ paths:
             default: 50
       responses:
         200:
-          $ref: '#/components/responses/TopicResponse200'
+          $ref: '#/components/responses/TopicsList_200'
         400:
-          $ref: '#/components/responses/TopicResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/TopicResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/TopicResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
     put:
       summary: Update the list of available topics
       operationId: updateTopics
@@ -312,13 +320,13 @@ paths:
                 $ref: '#/components/schemas/Topic'
       responses:
         200:
-          $ref: '#/components/responses/TopicResponse200'
+          $ref: '#/components/responses/TopicsList_200'
         400:
-          $ref: '#/components/responses/TopicResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/TopicResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/TopicResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
   /topics{tId}:
     delete:
       summary: Delete a topic
@@ -334,13 +342,13 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/responses/TopicResponse200'
+          $ref: '#/components/responses/TopicsList_200'
         400:
-          $ref: '#/components/responses/TopicResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/TopicResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/TopicResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
   /authorTopics:
     get:
       summary: Get a list of AuthorTopic items.
@@ -413,13 +421,13 @@ paths:
                 - $ref: '#/components/schemas/ImportAuthor'
       responses:
         200:
-          $ref: '#/components/responses/AuthorResponse200'
+          $ref: '#/components/responses/TopicsList_200'
         400:
-          $ref: '#/components/responses/AuthorResponse400'
+          $ref: '#/components/responses/BadRequest_400'
         403:
-          $ref: '#/components/responses/AuthorResponse403'
+          $ref: '#/components/responses/ForbiddenRequest_403'
         500:
-          $ref: '#/components/responses/AuthorResponse500'
+          $ref: '#/components/responses/ErrorRequest_500'
 
 components:
   schemas:
@@ -450,6 +458,7 @@ components:
           $ref: '#/components/schemas/Book'
         idAuthor:
           type: string
+          #objet 3 no mila créerna, atao anaty codebyte, le book, de import.
     Topic:
       type: object
       properties:
@@ -491,8 +500,117 @@ components:
           type: string
           description: ID of the author
 
+    ResponseStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: OK
+    ResponseBodyTemplate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+        body:
+          type: object
+
+    BadRequestBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 400
+          message: BAD REQUEST
+        body: { }
+
+
+    ForbiddenRequest:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 403
+          message: FORBIDDEN
+        body: { }
+
+    ServerErrorRequest:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 500
+          message: Internal servor error
+        body: { }
+    BookListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Book'
+    AuthorListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Author'
+    TopicsListBody :
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Topic'
+
+  responses:
+    BookList_200:
+      description: List of books
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookListBody'
+    AuthorList_200:
+      description: List of authors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorListBody'
+    TopicsList_200:
+      description: List of topics
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TopicsListBody'
+
+    BadRequest_400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestBody'
+    ForbiddenRequest_403:
+      description: List of books
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenRequest'
+    ErrorRequest_500:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerErrorRequest'
+
+
   parameters:
-    queryPagination:
+    Page:
       name: page
       in: query
       description: Page number for pagination
@@ -500,195 +618,15 @@ components:
       schema:
         type: integer
         default: 1
-    pathPagination:
-      name: pageSize
-      in: path
+    Size:
+      name: size
+      in: query
       description: Number of items per page
       required: false
       schema:
         type: integer
         default: 50
 
-  responses:
-    ResponseBase:
-      description: Base structure for a successful response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                  message:
-                    type: string
 
-    AuthorResponse200:
-      description: Successful response with a list of authors
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: '#/components/responses/ResponseBase'
-              - properties:
-                  body:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Author'
-    BookResponse200:
-      description: Successful response with a list of book
-      content:
-        applicatio/json:
-          schema:
-            allOf:
-              - $ref: '#/components/responses/ResponseBase'
-              - properties:
-                  body:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Book'
-    TopicResponse200:
-      description: Successful response with a list of topic
-      content:
-        applicatio/json:
-          schema:
-            allOf:
-              - $ref: '#/components/responses/ResponseBase'
-              - properties:
-                  body:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Topic'
-
-    BookResponse400:
-      description: Bad Request for Book entity
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: '#/components/responses/ResponseBase'
-              - properties:
-                  body:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Book'
-
-    TopicResponse400:
-        description: Bad Request for Topic entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/ResponseBase'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Topic'
-
-    AuthorResponse400:
-        description: Bad Request for Author entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/ResponseBase'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Author'
-    Response403:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/responses/ResponseBase'
-
-    BookResponse403:
-        description: Forbidden for Book entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response403'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Book'
-
-    TopicResponse403:
-        description: Forbidden for Topic entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response403'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Topic'
-
-    AuthorResponse403:
-        description: Forbidden for Author entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response403'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Author'
-    Response500:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/responses/ResponseBase'
-
-    BookResponse500:
-        description: Internal Server Error for Book entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response500'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Book'
-
-    TopicResponse500:
-        description: Internal Server Error for Topic entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response500'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Topic'
-
-    AuthorResponse500:
-        description: Internal Server Error for Author entity
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/responses/Response500'
-                - properties:
-                    body:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Author'
 
 
