@@ -486,11 +486,48 @@ paths:
         500:
           $ref: '#/components/responses/ErrorRequest_500'
 
-
-
+  /books/loan:
+    post:
+      summary: Check out or return a book.
+      tags:
+        - Books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookLoan'
+      responses:
+        '200':
+          description: Succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: succes
 
 components:
   schemas:
+
+    BookLoan:
+      type: object
+      properties:
+        actionId:
+          type: integer
+        bookId:
+          type: integer
+        visitorId:
+          type: integer
+        actionType:
+          type: string
+        actionDate:
+          type: string
+          format: date-time
+
+
     CrupdateBook:
       type: object
       properties:
@@ -511,6 +548,9 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
+            status:
+              type: string
+              enum: [ available, borrowed ]
     Visitor:
       type: object
       properties:
