@@ -20,6 +20,13 @@ paths:
       operationId: getBooks
       parameters:
         - in: query
+          name: bookStatus
+          description: "Filter by status (available or borrowed)"
+          required: false
+          schema:
+            type: string
+            enum: [ available, borrowed ]
+        - in: query
           name: bookName
           description: Filter return books by given name
           required: false
@@ -486,28 +493,83 @@ paths:
         500:
           $ref: '#/components/responses/ErrorRequest_500'
 
-  /books/loan:
+  /visitors/{visitorId}/activities:
+    get:
+      tags:
+        - Visitor
+      summary: Get visitor activities
+      operationId: getVisitorActivities
+      parameters:
+        - in: path
+          name: visitorId
+          description: ID of the visitor
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: startDate
+          description: Start date for filtering activities
+          required: false
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          description: End date for filtering activities
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          $ref: '#/components/responses/VisitorActivity_200'
+        400:
+          $ref: '#/components/responses/BadRequest_400'
+
+  /books/return:
     post:
-      summary: Check out or return a book.
       tags:
         - Books
+      summary: Return a borrowed book
+      operationId: returnBook
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookLoan'
+              type: object
+              properties:
+                bookId:
+                  type: integer
+                visitorId:
+                  type: integer
       responses:
-        '200':
-          description: Succes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: succes
+        200:
+          $ref: '#/components/responses/BookList_200'
+        400:
+          $ref: '#/components/responses/BadRequest_400'
+        403:
+          $ref: '#/components/responses/ForbiddenRequest_403'
+        500:
+          $ref: '#/components/responses/ErrorRequest_500'
+
+
+  /books/borrowed:
+    get:
+      tags:
+        - Books
+      summary: Get list of borrowed books
+      operationId: getBorrowedBooks
+      responses:
+        200:
+          $ref: '#/components/responses/BookList_200'
+        400:
+          $ref: '#/components/responses/BadRequest_400'
+        403:
+          $ref: '#/components/responses/ForbiddenRequest_403'
+        500:
+          $ref: '#/components/responses/ErrorRequest_500'
+
+
 
 components:
   schemas:
@@ -548,7 +610,7 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
-            status:
+            bookStatus:
               type: string
               enum: [ available, borrowed ]
     Visitor:
@@ -703,7 +765,30 @@ components:
               items:
                 $ref: '#/components/schemas/Visitor'
 
+    VisitorActivity:
+      type: object
+      properties:
+        activityType:
+          type: string
+          description: Type of activity (borrow or return)
+        bookID:
+          type: string
+          description: ID of the book involved in the activity
+        timestamp:
+          type: string
+          format: date-time
+          description: Time of the activity
+
   responses:
+    VisitorActivity_200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/VisitorActivity'
+
     BookList_200:
       description: List of books
       content:
