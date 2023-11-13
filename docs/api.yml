@@ -194,7 +194,8 @@ paths:
           multipart/form-data:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/ImportBook'
+                - $ref: '#/components/schemas/ImportBookExcel'
+                - $ref: '#/components/schemas/ImportBookJSON'
       responses:
         200:
           $ref: '#/components/responses/BookList_200'
@@ -418,7 +419,8 @@ paths:
           multipart/form-data:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/ImportAuthor'
+                - $ref: '#/components/schemas/ImportAuthorExcel'
+                - $ref: '#/components/schemas/ImportAuthorJSON'
       responses:
         200:
           $ref: '#/components/responses/TopicsList_200'
@@ -451,14 +453,20 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
-    ImportBook:
+    ImportAuthorExcel:
       type: object
       properties:
-        book:
-          $ref: '#/components/schemas/Book'
-        idAuthor:
+        excelFile:
           type: string
-          #objet 3 no mila créerna, atao anaty codebyte, le book, de import.
+          format: binary
+
+    ImportAuthorJSON:
+      type: object
+      properties:
+        jsonFile:
+          type: string
+          format: binary
+
     Topic:
       type: object
       properties:
@@ -484,11 +492,20 @@ components:
       enum:
         - M
         - F
-    ImportAuthor:
+    ImportBookExcel:
       type: object
       properties:
-        author:
-          $ref: '#/components/schemas/Author'
+        excelFile:
+          type: string
+          format: binary
+
+    ImportBookJSON:
+      type: object
+      properties:
+        jsonFile:
+          type: string
+          format: binary
+
 
     UpdateBookAuthor:
       type: object
