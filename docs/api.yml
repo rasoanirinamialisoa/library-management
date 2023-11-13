@@ -88,6 +88,8 @@ paths:
     put:
       summary: Modify the author of a book
       operationId: modifyBookAuthor
+      security:
+        - oauth2: [ 'manageAuthors' ]
       tags:
         - Books
       parameters:
@@ -117,6 +119,8 @@ paths:
     put:
       summary: Update book authors in bulk
       operationId: updateBookAuthors
+      security:
+        - oauth2: [ 'manageAuthors' ]
       tags:
         - Books
       requestBody:
@@ -140,6 +144,8 @@ paths:
     put:
       summary: Update the topic of a book
       operationId: updateBookTopic
+      security:
+        - oauth2: [ 'manageTopics' ]
       tags:
         - Books
       parameters:
@@ -169,6 +175,8 @@ paths:
     put:
       summary: Update the list of available book topics
       operationId: updateBookTopics
+      security:
+        - oauth2: [ 'manageTopics' ]
       tags:
         - Books
       requestBody:
@@ -193,6 +201,8 @@ paths:
     post:
       summary: Import a list of books
       operationId: importBooks
+      security:
+        - oauth2: [ 'write' ]
       tags:
         - Books
       requestBody:
@@ -532,6 +542,8 @@ paths:
         - Books
       summary: Return a borrowed book
       operationId: returnBook
+      security:
+        - oauth2: [ 'borrow' ]
       requestBody:
         content:
           application/json:
@@ -559,6 +571,8 @@ paths:
         - Books
       summary: Get list of borrowed books
       operationId: getBorrowedBooks
+      security:
+        - oauth2: [ 'borrow' ]
       responses:
         200:
           $ref: '#/components/responses/BookList_200'
@@ -572,6 +586,7 @@ paths:
 
 
 components:
+
   schemas:
 
     BookLoan:
@@ -851,6 +866,21 @@ components:
       schema:
         type: integer
         default: 50
+
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://example.com/oauth/authorize'
+          tokenUrl: 'https://example.com/oauth/token'
+          scopes:
+            read: Allows reading resources
+            write: Allows writing resources
+            borrow: Permits borrowing books
+            manageAuthors: Allows managing authors
+            manageTopics: Allows managing topics
+
 
 
 
