@@ -432,6 +432,63 @@ paths:
         500:
           $ref: '#/components/responses/ErrorRequest_500'
 
+  /visitors:
+    get:
+      tags:
+        - Visitor
+      summary: get all visitor
+      description: Get the List of the visitor
+      operationId: getVisitor
+      responses:
+        200 :
+          $ref: '#/components/responses/ErrorRequest_500'
+    put:
+      tags:
+        - Visitor
+      summary : Update the visitor
+      operationId: updateVisitor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Visitor'
+      responses:
+        200:
+          $ref: '#/components/responses/VisitorList_200'
+        400:
+          $ref:  '#/components/responses/BadRequest_400'
+        403:
+          $ref:  '#/components/responses/ForbiddenRequest_403'
+        500:
+          $ref:  '#/components/responses/ErrorRequest_500'
+
+  /visitors/{visitorId}:
+    delete:
+      summary: Delete visitor in ID
+      tags:
+        - Visitor
+      parameters:
+        - name: visitorId
+          in: path
+          required: true
+          description: Visitor identifier to be deleted
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/VisitorList_200'
+        400:
+          $ref: '#/components/responses/BadRequest_400'
+        403:
+          $ref: '#/components/responses/ForbiddenRequest_403'
+        500:
+          $ref: '#/components/responses/ErrorRequest_500'
+
+
+
+
 components:
   schemas:
     CrupdateBook:
@@ -454,7 +511,6 @@ components:
               $ref: '#/components/schemas/Author'
             topic:
               $ref: '#/components/schemas/Topic'
-
     Visitor:
       type: object
       properties:
@@ -464,6 +520,7 @@ components:
           type: string
         reference:
           type: string
+
 
     ImportAuthorExcel:
       type: object
